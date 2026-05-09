@@ -10,44 +10,10 @@
       - name: Get Flutter packages
         script: flutter pub get
       - name: Generate iOS project files
-        script: flutter create --platforms=ios --project-name calc_cientifica_valentina .
-      - name: Write Podfile
+        script: flutter create --platforms=ios --project-name calc_cientifica_estrella .
+      - name: Fix iOS deployment target
         script: |
-          cat > ios/Podfile << 'PODEOF'
-          platform :ios, '13.0'
-          ENV['COCOAPODS_DISABLE_STATS'] = 'true'
-          project 'Runner', {
-            'Debug' => :debug,
-            'Profile' => :release,
-            'Release' => :release,
-          }
-          def flutter_root
-            generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
-            unless File.exist?(generated_xcode_build_settings_path)
-              raise "#{generated_xcode_build_settings_path} must exist."
-            end
-            File.foreach(generated_xcode_build_settings_path) do |line|
-              matches = line.match(/FLUTTER_ROOT\=(.*)/)
-              return matches[1].strip if matches
-            end
-            raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}."
-          end
-          require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
-          flutter_ios_podfile_setup
-          target 'Runner' do
-            use_frameworks!
-            use_modular_headers!
-            flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-            target 'RunnerTests' do
-              inherit! :search_paths
-            end
-          end
-          post_install do |installer|
-            installer.pods_project.targets.each do |target|
-              flutter_additional_ios_build_settings(target)
-            end
-          end
-          PODEOF
+          sed -i '' "s/platform :ios, '12.0'/platform :ios, '13.0'/" ios/Podfile
       - name: Install pods
         script: cd ios && pod install
       - name: Build IPA (no code sign)
@@ -57,9 +23,9 @@
           cd build/ios/iphoneos
           mkdir -p Payload
           cp -r Runner.app Payload/
-          zip -r CalcCientificaValentina.ipa Payload
+          zip -r CalcCientificaEstrella.ipa Payload
     artifacts:
-      - build/ios/iphoneos/CalcCientificaValentina.ipa
+      - build/ios/iphoneos/CalcCientificaEstrella.ipa
     publishing:
       email:
         recipients:
