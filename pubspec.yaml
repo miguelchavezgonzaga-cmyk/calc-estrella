@@ -1,0 +1,16 @@
+name: calc_cientifica_estrella
+description: Calculadora Científica - Estrella Lizeth Escamilla Vargas - CETIS 131
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/logo_cetis.jpg
