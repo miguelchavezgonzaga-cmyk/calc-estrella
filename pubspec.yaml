@@ -1,5 +1,5 @@
 name: calc_cientifica_estrella
-description: Calculadora Científica - Estrella Lizeth Escamilla Vargas - CETIS 131
+description: Calculadora Científica CETIS 131 — Valentina Carrizales Flores
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -8,6 +8,10 @@ environment:
 
 dependencies:
   flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
     sdk: flutter
 
 flutter:
